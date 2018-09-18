@@ -1,1 +1,2 @@
-Write out some of your awesome attributes, and use emphasis (like bold or italics) to identify keywords, programming languages, or skills. 
+
+**Greetings, I’m Suryakant. I’m a Software Engineer living in Chandigarh, India. I am a fan of _ios_, _swift_, and _programming_. I enjoy coffee while coding and cycling.**
