@@ -1,1 +1,5 @@
-Replace this with a list of your favorite things.
+- Skills
+   - iOS
+   - Swift
+   - oops
+   - C/C++
