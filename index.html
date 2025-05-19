@@ -5,16 +5,30 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="About Suryakant Sharma">
+    <meta name="description" content="Suryakant Sharma - iOS Engineer Portfolio | Swift, SwiftUI, UIKit Expert">
     <meta name="author" content="Suryakant Sharma">
+    <meta name="keywords" content="iOS, Swift, SwiftUI, UIKit, Mobile Development, App Development">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Suryakant Sharma | iOS Engineer Portfolio">
+    <meta property="og:description" content="iOS Engineer with expertise in Swift, SwiftUI, and UIKit">
+    <meta property="og:image" content="img/portfolio/thumbnails/1.jpg">
+    <meta property="og:url" content="https://suryakantsharma.github.io/Portfolio/">
+    <meta name="twitter:card" content="summary_large_image">
 
     <title>Suryakant Sharma | iOS Engineer Portfolio</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Inter:400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -37,7 +51,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Suryakant Sharma</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top" aria-label="Go to top">Suryakant Sharma</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -62,6 +76,9 @@
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
           </ul>
+          <button id="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fa fa-moon-o"></i>
+          </button>
         </div>
       </div>
     </nav>
@@ -150,9 +167,19 @@
             <p class="text-muted">Featured Work & Open Source Contributions</p>
           </div>
         </div>
+        
+        <!-- Project Filters -->
+        <div class="project-filters mb-4">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="swift">Swift</button>
+          <button class="filter-btn" data-filter="uikit">UIKit</button>
+          <button class="filter-btn" data-filter="swiftui">SwiftUI</button>
+          <button class="filter-btn" data-filter="open-source">Open Source</button>
+        </div>
+        
         <div class="row justify-content-center">
           <div class="col-lg-6 col-md-8 mb-4">
-            <div class="card project-card glass-card h-100">
+            <div class="card project-card glass-card h-100 swift uikit open-source">
               <img class="card-img-top" src="img/portfolio/fullsize/2.jpg" alt="CountryPicker">
               <div class="card-body">
                 <h4 class="card-title">CountryPicker</h4>
@@ -166,6 +193,25 @@
               <div class="card-footer">
                 <a href="projects/countrypicker.html" class="btn btn-glass btn-sm">View Details</a>
                 <a href="https://github.com/SURYAKANTSHARMA/CountryPicker" class="btn btn-outline-glass btn-sm" target="_blank">GitHub <i class="fa fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6 col-md-8 mb-4">
+            <div class="card project-card glass-card h-100 swift uikit open-source">
+              <img class="card-img-top" src="img/portfolio/fullsize/3.jpg" alt="UberCarAnimation">
+              <div class="card-body">
+                <h4 class="card-title">UberCarAnimation</h4>
+                <p class="card-text">A smooth car animation similar to the Uber app, demonstrated with MapKit integration for iOS applications.</p>
+                <div class="project-tags">
+                  <span class="badge badge-primary">Swift</span>
+                  <span class="badge badge-primary">MapKit</span>
+                  <span class="badge badge-primary">Animation</span>
+                  <span class="badge badge-primary">Open Source</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="https://github.com/SURYAKANTSHARMA/UberCarAnimation" class="btn btn-outline-glass btn-sm" target="_blank">GitHub <i class="fa fa-github"></i></a>
               </div>
             </div>
           </div>
@@ -284,6 +330,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>
+    <script src="js/theme-switcher.js"></script>
+    <script src="js/project-filter.js"></script>
 
   </body>
 
