@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Apple Design Patterns in iOS Swift by Suryakant Sharma">
+    <meta name="author" content="Suryakant Sharma">
+    <title>Apple Design Patterns in iOS Swift - Suryakant Sharma's Blog</title>
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
+    <link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../../css/creative.css" rel="stylesheet">
+    <link href="../../css/blog.css" rel="stylesheet">
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="../../index.html">Suryakant Sharma</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#timeline">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../education.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#contact">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" aria-label="Toggle dark/light mode"><i class="fa fa-moon-o"></i></button>
+            </div>
+        </div>
+    </nav>
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="article-title">Apple Design Patterns in iOS Swift</h1>
+                    <div class="article-meta">
+                        <span><i class="fa fa-calendar"></i> Feb 26, 2020</span>
+                        <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="badge badge-primary">iOS</span>
+                        <span class="badge badge-primary">Swift</span>
+                        <span class="badge badge-primary">Design Patterns</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="article-content bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <article class="glass-card p-4">
+                        <div class="article-body">
+                            <p>Here I will be discussing the design patterns that use in most of Apple's frameworks.<br>Let's dive in! 😀</p>
+                            <h2>What are design patterns?</h2>
+                            <p>Design patterns are a solution to recurring problems that a software developer faces. Using design patterns helps us with code decoupling, single responsibility and testability. It gives us a common vocabulary to use in the community which is independent of any language. This inspires me to learn and write evergreen design patterns.</p>
+                            <p>Below are three types of design patterns:</p>
+                            <ol>
+                                <li><strong>Creational patterns</strong> provide object creational mechanisms, which help us with increased flexibility and reusability of existing code.</li>
+                                <li><strong>Structural patterns</strong> explain how to assemble objects and classes into larger structures.</li>
+                                <li><strong>Behavioral design patterns</strong> are design patterns that identify common communication patterns between objects.</li>
+                            </ol>
+                            <h2>Let us talk about the patterns used in the iOS SDKs</h2>
+                            <h3>Singleton</h3>
+                            <p><strong>Singleton</strong> is a creational design pattern. It allows only one object to exist in the entire life cycle. To avoid misuse we should make <code>init()</code> private so no other instance can be created outside to avoid unnecessary bugs. Injecting the singletons make dependency more clear and easy for mock while testing.</p>
+                            <pre><code class="language-swift">let defaults = UserDefaults.standard
+let application = UIApplication.shared
+</code></pre>
+                            <p>You can create simple singletons using a static type property. Which is guaranteed to be lazily initialized only once, even when accessed across multiple threads simultaneously.</p>
+                            <pre><code class="language-swift">class MySingleton {
+    static let shared = MySingleton()
+    private init() {}
+}
+</code></pre>
+                            <p>If you need to perform additional setup beyond initialization. Then you can assign the result of the invocation of closure to the global constant.</p>
+                            <h3>Chain of Responsibility ⛓️</h3>
+                            <p><strong>Chain of Responsibility</strong> is a behavioral design pattern. It allow you to pass requests along a chain of handlers. Upon receiving a request, each handler decides either to process the request or pass in chain.</p>
+                            <p><em>e.g Each UIResponder in UI hierarchy decide either handle tap or pass on to other responders</em></p>
+                            <p>Let us see how the responder chain works in the UI hierarchy when the user taps on the button of any iOS application.</p>
+                            <pre><code class="language-swift">override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    // handle or pass to next responder
+}
+</code></pre>
+                            <h3>Facade</h3>
+                            <p><strong>Facade</strong> is the structural design pattern. It allows a single simplified interface for all external clients. A single class represents all subsystems.</p>
+                            <p><em>e.g CoreData NSPersistentContainer. A container that encapsulates the Core Data stack in your app. NSPersistentContainer simplifies the creation and management of the Core Data stack by handling the creation of the managed object model (<code>NSManagedObjectModel</code>), persistent store coordinator (<code>NSPersistentStoreCoordinator</code>), and the managed object context (<code>NSManagedObjectContext</code>).</em></p>
+                            <p>Let's see how we used to build the core data stack before iOS 10.</p>
+                            <pre><code class="language-swift">guard let modelURL = Bundle.main.url(forResource: "DataModel", withExtension: "momd") else {
+    fatalError("Failed to find data model")
+}
+guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
+    fatalError("Failed to create model from file: \(modelURL)")
+}
+let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
+let dirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
+let fileURL = URL(string: "DataModel.sql", relativeTo: dirURL)
+do {
+    try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: fileURL, options: nil)
+} catch {
+    fatalError("Error configuring persistent store: \(error)")
+}
+</code></pre>
+                            <p>But after facade implementation, it is much easier now.</p>
+                            <pre><code class="language-swift">lazy var persistentContainer: NSPersistentContainer = {
+    let container = NSPersistentContainer(name: "DataModel")
+    container.loadPersistentStores { description, error in
+        if let error = error {
+            fatalError("Unable to load persistent stores: \(error)")
+        }
+    }
+    return container
+}()
+</code></pre>
+                            <h3>Observer</h3>
+                            <p><strong>Observer</strong> is a behavioral pattern that creates a one-to-many dependency between objects. When one object changes state, all its dependents are notified and can update.</p>
+                            <p><em>e.g KVO, NotificationCenter.</em></p>
+                            <p>Let see how we can implement our own observer pattern in swift.</p>
+                            <pre><code class="language-swift">protocol Observer: AnyObject {
+    func update(subject: Subject)
+}
+
+class Subject {
+    private lazy var observers = [Observer]()
+    var state: Int = { didSet { notify() } }
+    func attach(_ observer: Observer) {
+        observers.append(observer)
+    }
+    func notify() {
+        observers.forEach { $0.update(subject: self) }
+    }
+}
+</code></pre>
+                            <h2>Resources</h2>
+                            <ul>
+                                <li><a href="https://sourcemaking.com/design_patterns" target="_blank">sourcemaking.com/design_patterns</a></li>
+                                <li><a href="https://www.geeksforgeeks.org/software-design-patterns/" target="_blank">geeksforgeeks.org/software-design-patterns</a></li>
+                                <li><a href="https://refactoring.guru/design-patterns" target="_blank">refactoring.guru/design-patterns</a></li>
+                                <li><a href="https://www.raywenderlich.com/" target="_blank">raywenderlich.com</a></li>
+                            </ul>
+                            <p>Thank you for reading! If you liked this article, please 👏 so other people can read it too :)<br><strong>Follow me on Twitter for more.</strong></p>
+                        </div>
+                        <div class="medium-link mt-4">
+                            <a href="https://suryakantsharma84.medium.com/design-patterns-in-ios-swift-977776513f66" class="btn btn-glass" target="_blank">
+                                Read on Medium <i class="fa fa-medium ml-2"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="../../js/creative.js"></script>
+    <script src="../../js/theme-switcher.js"></script>
+    <style>
+        .article-content {
+            padding: 100px 0;
+            min-height: 100vh;
+        }
+        .article-content .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #fff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .article-content p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .article-content ul, .article-content ol {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        .article-content pre {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        .article-content code {
+            color: #e6e6e6;
+        }
+        .article-content .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        .article-content .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .article-content .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .article-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 120px 0 60px;
+            margin-bottom: 0;
+        }
+        .article-title {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        .article-meta span {
+            margin-right: 1.5rem;
+        }
+    </style>
+</body>
+</html> 

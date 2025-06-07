@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Debugging and Fixing Memory Leaks in iOS: My Experience with the Fare Estimate Screen in Rapido">
+  <meta name="author" content="Suryakant Sharma">
+
+  <title>Debugging and Fixing Memory Leaks in iOS: My Experience with the Fare Estimate Screen in Rapido - Suryakant Sharma's Blog</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts -->
+  <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles -->
+  <link href="../../css/creative.css" rel="stylesheet">
+  <link href="../../css/blog.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="../../index.html">Suryakant Sharma</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.html#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.html#skills">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.html#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.html#blog">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.html#timeline">Experience</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../education.html">Education</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.html#contact">Contact</a>
+          </li>
+        </ul>
+        <button id="theme-toggle" aria-label="Toggle dark/light mode">
+          <i class="fa fa-moon-o"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h1 class="article-title">🔍 Debugging and Fixing Memory Leaks in iOS: My Experience with the Fare Estimate Screen in Rapido</h1>
+          <div class="article-meta">
+            <span><i class="fa fa-calendar"></i> Jul 27, 2024</span>
+            <span><i class="fa fa-clock-o"></i> 5 min read</span>
+          </div>
+          <div class="article-tags">
+            <span class="badge badge-primary">iOS</span>
+            <span class="badge badge-primary">Memory Leaks</span>
+            <span class="badge badge-primary">Debugging</span>
+            <span class="badge badge-primary">Swift</span>
+            <span class="badge badge-primary">Instruments</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <section class="article-content bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <article class="glass-card p-4">
+            <p>Memory leaks are one of the most challenging issues to debug in iOS development. 🧩 In this article, I'll share my experience debugging and fixing memory leaks in the Fare Estimate screen of the Rapido app. Let's dive into the process and learn some valuable lessons along the way. 🚀</p>
+
+            <h2>Introduction</h2>
+            <p>As an iOS developer 💻, effective memory management is crucial for ensuring smooth performance and a seamless user experience in your apps. Recently, I encountered a memory leak in the new Fare Estimate screen of the Rapido app. This article chronicles my journey of identifying and fixing the leak, sharing insights and techniques that might help fellow developers facing similar issues. These issues often arise with new iOS APIs like `UITableViewDiffableDataSource` and Swift concurrency continuation APIs.</p>
+
+            <h2>The Challenge</h2>
+            <p>Upon introducing the new Fare Estimate screen, we noticed increased memory usage leading to performance degradation. Additionally, the fare estimate events were being triggered unexpectedly. Identifying and resolving memory leaks can be challenging, especially when the issue isn't immediately apparent.</p>
+
+            <h2>Tools and Techniques</h2>
+            <h3>1. Leaks Instrument</h3>
+            <ul>
+              <li>📊 <strong>The Leaks Instrument</strong> in Xcode is a powerful tool for detecting memory leaks. However, pinpointing the exact location and cause of the leak can be complex.</li>
+              <li>💡 <strong>Experience:</strong> While the Leaks Instrument helped identify that a leak existed, it was difficult to determine exactly where the issue originated. This is often the case with more subtle memory management problems.</li>
+            </ul>
+
+            <h3>2. Memory Debugger</h3>
+            <ul>
+              <li>🔍 <strong>The Memory Debugger</strong> in Xcode provides a visual representation of your app's memory usage, including objects that have strong reference cycles.</li>
+              <li>💡 <strong>Experience:</strong> Using the Memory Debugger, I was able to get hints about what might be causing the issue. The primary problem turned out to be related to strong references ♻️ where weak references should have been used. Specifically, updating closures to use `[weak self]` resolved part of the issue.</li>
+              <li>📝 <strong>Learning:</strong> Sometimes you might omit `self` when passing a closure, which implicitly captures `self`, making it harder to reason about. While the code looks cleaner with syntactic sugar, it can hide memory leaks.</li>
+            </ul>
+
+            <h3>Example of Strong Reference Cycle in Closures</h3>
+            <pre><code class="language-swift">// Before: Memory leak due to strong reference cycle
+class FareEstimateVC {  
+    lazy var someProperty = {  
+        let view = SomeViewClass(onCancelButton)  
+        return view  
+    }()   
+      
+    func onCancelButton() {  
+        // Implementation
+    }  
+}
+
+// After: Fixed with weak self
+class FareEstimateVC {  
+    lazy var someProperty = {  
+        let view = SomeViewClass() { [weak self] in   
+            self?.onCancelButton()  
+        }  
+        return view  
+    }()   
+      
+    func onCancelButton() {  
+        // Implementation
+    }  
+}</code></pre>
+
+            <h3>Example with UITableViewDiffableDataSource</h3>
+            <pre><code class="language-swift">class MyViewController: UIViewController {  
+    var dataSource: UITableViewDiffableDataSource<RequestRapidoBottomSectionType, AnyHashable>!  
+  
+    override func viewDidLoad() {  
+        super.viewDidLoad()  
+  
+        dataSource = UITableViewDiffableDataSource<RequestRapidoBottomSectionType, AnyHashable>(  
+            tableView: tableView,  
+            cellProvider: { [weak self] tableView, indexPath, item in  
+                // Using weak self to prevent memory leak
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)  
+                // Configure the cell  
+                cell.onUpdate = self?.onUpdate()   
+                return cell  
+            }  
+        )  
+    }  
+}</code></pre>
+
+            <h3>3. Manual Code Review and Commenting</h3>
+            <p>After fixing these leaks, we noticed additional issues causing leaks in the screen. We manually added print statements in `deinit` and started commenting out code to identify the problem. Eventually, we found the culprit: new Swift concurrency continuation APIs.</p>
+
+            <h3>Example of Memory Leak with Continuations</h3>
+            <pre><code class="language-swift">import UIKit  
+  
+class MyViewController: UIViewController {  
+    override func viewDidLoad() {  
+        super.viewDidLoad()  
+        fetchData()  
+    }  
+  
+    func fetchData() {  
+        async {  
+            let data = await loadData()  
+            process(data)  
+        }  
+    }  
+  
+    func loadData() async -> String {  
+        await withCheckedContinuation { continuation in  
+            // Simulate a network call or long-running task  
+            DispatchQueue.global().asyncAfter(deadline: .now() + 2) {  
+                // Forgot to call continuation.resume(returning:)
+                // continuation.resume(returning: "Some data")  
+            }  
+  
+            self.process("data")  
+        }  
+    }  
+  
+    func process(_ data: String) {  
+        print("Processing data: \(data)")  
+    }  
+}</code></pre>
+
+            <h3>Fixed Version with Proper Continuation Handling</h3>
+            <pre><code class="language-swift">import UIKit  
+  
+class MyViewController: UIViewController {  
+    override func viewDidLoad() {  
+        super.viewDidLoad()  
+        fetchData()  
+    }  
+  
+    func fetchData() {  
+        Task {  
+            let data = await loadData()  
+            process(data)  
+        }  
+    }  
+  
+    func loadData() async -> String {  
+        await withCheckedContinuation { continuation in  
+            // Simulate a network call or long-running task  
+            DispatchQueue.global().asyncAfter(deadline: .now() + 2) {  
+                continuation.resume(returning: "Some data")  
+            }  
+        }  
+    }  
+  
+    func process(_ data: String) {  
+        print("Processing data: \(data)")  
+    }  
+}</code></pre>
+
+            <h2>Memory Management with Continuations</h2>
+            <p>Continuations need to be carefully managed because they hold strong references to the closure and any objects captured by the closure. This means:</p>
+            <ul>
+              <li>🔗 <strong>Continuation Holds the Closure:</strong> `withCheckedContinuation` creates a continuation and captures the closure passed to it.</li>
+              <li>📦 <strong>Captured Objects:</strong> Any objects captured by this closure (e.g., `self`, if referenced) are also retained.</li>
+              <li>⚠️ <strong>Memory Leak:</strong> Because `continuation.resume(returning:)` is never called, the continuation and its closure remain in memory 🚰. This means `self` is also retained, preventing the view controller from being deallocated🐛.</li>
+            </ul>
+
+            <h2>The Solution</h2>
+            <p>After thorough investigation and debugging, the key issues contributing to the memory leak were:</p>
+            <ul>
+              <li>🔗 <strong>Strong Reference Cycles:</strong> Using strong references in closures where weak references were more appropriate.</li>
+              <li>🔄 <strong>Retain Cycles:</strong> Objects retaining each other, preventing proper deallocation.</li>
+            </ul>
+
+            <p>By addressing these issues through the techniques mentioned above, the memory leak was resolved, and the Fare Estimate screen now functions smoothly.</p>
+
+            <h2>Conclusion</h2>
+            <p>Debugging memory leaks requires patience and a methodical approach. While tools like the Leaks Instrument and Memory Debugger are incredibly useful, sometimes manual techniques such as code review and commenting can be just as effective. Sharing experiences and solutions within the developer community helps us all build more efficient and robust applications.</p>
+
+            <h2>Feedback</h2>
+            <p>I'd love to hear your thoughts and experiences on debugging memory leaks. Have you encountered similar issues? What tools and techniques have you found most effective? Share your feedback and let's learn together! 🚀</p>
+
+            <div class="article-tags">
+              <span class="badge badge-primary">iOS</span>
+              <span class="badge badge-primary">Memory Leaks</span>
+              <span class="badge badge-primary">Debugging</span>
+              <span class="badge badge-primary">Swift</span>
+              <span class="badge badge-primary">Instruments</span>
+              <span class="badge badge-primary">Performance</span>
+              <span class="badge badge-primary">Swift Concurrency</span>
+              <span class="badge badge-primary">iOS App Development</span>
+              <span class="badge badge-primary">Swift Programming</span>
+            </div>
+
+            <div class="article-footer mt-4">
+              <a href="https://suryakantsharma84.medium.com/debugging-and-fixing-memory-leaks-in-ios-my-experience-with-the-fare-estimate-screen-in-rapido" class="btn btn-glass" target="_blank">Read on Medium <i class="fa fa-medium ml-2"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
+  <script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+  <!-- Custom scripts -->
+  <script src="../../js/creative.js"></script>
+  <script src="../../js/theme-switcher.js"></script>
+
+  <style>
+    .article-content {
+      padding: 100px 0;
+      min-height: 100vh;
+    }
+    
+    .article-content .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+    
+    .article-content h1, 
+    .article-content h2, 
+    .article-content h3 {
+      color: #fff;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .article-content p {
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content ul, 
+    .article-content ol {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content pre {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .article-content code {
+      color: #e6e6e6;
+    }
+    
+    .article-content .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+    
+    .article-content .btn-glass {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+    
+    .article-content .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .article-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 120px 0 60px;
+      margin-bottom: 0;
+    }
+    
+    .article-title {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .article-meta {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1rem;
+    }
+    
+    .article-meta span {
+      margin-right: 1.5rem;
+    }
+  </style>
+</body>
+</html> 

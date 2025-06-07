@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="iOS Development Article by Suryakant Sharma">
+    <meta name="author" content="Suryakant Sharma">
+    
+    <title>Mastering Thread Safety and Memory Management in Swift - Suryakant Sharma's Blog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts -->
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="../../css/creative.css" rel="stylesheet">
+    <link href="../../css/blog.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="../../index.html">Suryakant Sharma</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#timeline">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../education.html">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+                <button id="theme-toggle" aria-label="Toggle dark/light mode">
+                    <i class="fa fa-moon-o"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="article-title">Mastering Thread Safety and Memory Management in Swift</h1>
+                    <div class="article-meta">
+                        <span><i class="fa fa-calendar"></i> February 3, 2024</span>
+                        <span><i class="fa fa-clock-o"></i> 2 min read</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="badge badge-primary">Swift</span>
+                        <span class="badge badge-primary">Memory Management</span>
+                        <span class="badge badge-primary">Thread Safety</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <article class="article-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="article-body">
+                        <h2>Unveiling the Power of ThreadSanitizer and AddressSanitizer in Xcode</h2>
+
+                        <p>In the world of iOS development, ensuring thread safety and proper memory management is crucial for building robust and performant applications. Swift provides powerful tools to help developers identify and fix these issues, with ThreadSanitizer (TSan) and AddressSanitizer (ASan) being two of the most important ones.</p>
+
+                        <h3>Understanding Thread Safety</h3>
+                        <p>Thread safety is a critical aspect of concurrent programming. When multiple threads access shared resources simultaneously, it can lead to race conditions, deadlocks, and other synchronization issues. Swift's concurrency model, with its actor system and structured concurrency, helps prevent many of these issues, but it's still important to understand how to use these tools effectively.</p>
+
+                        <h3>ThreadSanitizer (TSan)</h3>
+                        <p>ThreadSanitizer is a powerful tool that helps detect data races in your code. It works by instrumenting your code at compile time to track memory accesses and thread interactions. When you run your app with TSan enabled, it will report any potential data races it finds.</p>
+
+                        <pre><code>
+// Example of a potential data race
+class Counter {
+    private var count = 0
+    
+    func increment() {
+        count += 1  // Potential data race if called from multiple threads
+    }
+}
+                        </code></pre>
+
+                        <p>To fix this, we can use Swift's actor system:</p>
+
+                        <pre><code>
+actor Counter {
+    private var count = 0
+    
+    func increment() {
+        count += 1  // Now thread-safe
+    }
+}
+                        </code></pre>
+
+                        <h3>AddressSanitizer (ASan)</h3>
+                        <p>AddressSanitizer helps detect memory management issues such as:</p>
+                        <ul>
+                            <li>Buffer overflows</li>
+                            <li>Use-after-free errors</li>
+                            <li>Double-free errors</li>
+                            <li>Memory leaks</li>
+                        </ul>
+
+                        <p>Here's an example of a memory leak that ASan can help detect:</p>
+
+                        <pre><code>
+class ViewController: UIViewController {
+    var timer: Timer?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.updateUI()
+        }
+    }
+    
+    // Missing deinit to invalidate timer
+}
+                        </code></pre>
+
+                        <h3>Best Practices</h3>
+                        <ol>
+                            <li>Use Swift's actor system for thread-safe state management</li>
+                            <li>Always use weak references in closures to prevent retain cycles</li>
+                            <li>Properly clean up resources in deinit</li>
+                            <li>Use structured concurrency with async/await instead of manual thread management</li>
+                            <li>Regularly run your app with TSan and ASan enabled during development</li>
+                        </ol>
+
+                        <h3>Conclusion</h3>
+                        <p>Thread safety and memory management are fundamental aspects of iOS development. By leveraging tools like ThreadSanitizer and AddressSanitizer, along with Swift's modern concurrency features, we can build more reliable and performant applications. Remember to make these tools part of your regular development workflow to catch issues early in the development process.</p>
+                    </div>
+                    
+                    <!-- Medium Link -->
+                    <div class="medium-link">
+                        <a href="https://suryakantsharma84.medium.com/mastering-thread-safety-and-memory-management-in-swift-5f2625868c3e" class="btn btn-glass" target="_blank">
+                            Read on Medium <i class="fa fa-medium ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="../../js/creative.js"></script>
+    <script src="../../js/theme-switcher.js"></script>
+</body>
+</html> 
