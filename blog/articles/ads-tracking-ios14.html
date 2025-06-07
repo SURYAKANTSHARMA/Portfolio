@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Ads Tracking - Before and after iOS 14 by Suryakant Sharma">
+    <meta name="author" content="Suryakant Sharma">
+    <title>Ads Tracking - Before and after iOS 14 - Suryakant Sharma's Blog</title>
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../../css/creative.css" rel="stylesheet">
+    <link href="../../css/blog.css" rel="stylesheet">
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="../../index.html">Suryakant Sharma</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#timeline">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../education.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#contact">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" aria-label="Toggle dark/light mode"><i class="fa fa-moon-o"></i></button>
+            </div>
+        </div>
+    </nav>
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="article-title">Ads Tracking - Before and after iOS 14</h1>
+                    <div class="article-meta">
+                        <span><i class="fa fa-calendar"></i> Oct 13, 2020</span>
+                        <span><i class="fa fa-clock-o"></i> 6 min read</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="badge badge-primary">iOS</span>
+                        <span class="badge badge-primary">Ads Tracking</span>
+                        <span class="badge badge-primary">IDFA</span>
+                        <span class="badge badge-primary">iOS 14</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="article-content bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <article class="glass-card p-4">
+                        <div class="article-body">
+                            <h2>Let's start with understanding IDFA</h2>
+                            <p>IDFA (Identifier for Advertisers) is a unique identifier assigned to each iOS device, used by advertisers to track and target users. Before iOS 14, apps could access IDFA by default unless the user had enabled Limit Ad Tracking.</p>
+                            <h3>Before iOS 14</h3>
+                            <ul>
+                                <li>Apps could access IDFA without explicit user permission.</li>
+                                <li>Users could opt out via "Limit Ad Tracking" in settings.</li>
+                                <li>Most users did not change this setting, so IDFA was widely available.</li>
+                            </ul>
+                            <pre><code class="language-swift">import AdSupport
+let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+</code></pre>
+                            <h3>After iOS 14</h3>
+                            <ul>
+                                <li>Apple introduced App Tracking Transparency (ATT) framework.</li>
+                                <li>Apps must request user permission to access IDFA.</li>
+                                <li>If the user denies, the IDFA is all zeros.</li>
+                            </ul>
+                            <pre><code class="language-swift">import AppTrackingTransparency
+import AdSupport
+
+ATTrackingManager.requestTrackingAuthorization { status in
+    switch status {
+    case .authorized:
+        let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        print("IDFA: \(idfa)")
+    case .denied, .restricted, .notDetermined:
+        print("Tracking not authorized")
+    @unknown default:
+        break
+    }
+}
+</code></pre>
+                            <h3>Impact on Advertisers</h3>
+                            <ul>
+                                <li>Less access to user data for personalized ads.</li>
+                                <li>Attribution and ad measurement became more challenging.</li>
+                                <li>Increased focus on privacy and user consent.</li>
+                            </ul>
+                            <h3>Best Practices</h3>
+                            <ol>
+                                <li>Be transparent with users about why you need tracking.</li>
+                                <li>Use ATT prompt at an appropriate time in the user journey.</li>
+                                <li>Respect user choice and privacy.</li>
+                                <li>Explore alternative attribution methods (SKAdNetwork, etc.).</li>
+                            </ol>
+                            <h3>Conclusion</h3>
+                            <p>iOS 14 brought significant changes to ads tracking and user privacy. Understanding these changes and adapting your app's tracking strategy is crucial for compliance and user trust.</p>
+                        </div>
+                        <div class="medium-link mt-4">
+                            <a href="https://suryakantsharma84.medium.com/ads-tracking-before-and-after-ios-14-abcdef123456" class="btn btn-glass" target="_blank">
+                                Read on Medium <i class="fa fa-medium ml-2"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="../../js/creative.js"></script>
+    <script src="../../js/theme-switcher.js"></script>
+    <style>
+        .article-content {
+            padding: 100px 0;
+            min-height: 100vh;
+        }
+        .article-content .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #fff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .article-content p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .article-content ul, .article-content ol {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        .article-content pre {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        .article-content code {
+            color: #e6e6e6;
+        }
+        .article-content .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        .article-content .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .article-content .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .article-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 120px 0 60px;
+            margin-bottom: 0;
+        }
+        .article-title {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        .article-meta span {
+            margin-right: 1.5rem;
+        }
+    </style>
+</body>
+</html> 

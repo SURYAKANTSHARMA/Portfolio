@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Writing testable code in iOS by Suryakant Sharma">
+    <meta name="author" content="Suryakant Sharma">
+    <title>Writing testable code in iOS - Suryakant Sharma's Blog</title>
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../../css/creative.css" rel="stylesheet">
+    <link href="../../css/blog.css" rel="stylesheet">
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="../../index.html">Suryakant Sharma</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#timeline">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../education.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../index.html#contact">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" aria-label="Toggle dark/light mode"><i class="fa fa-moon-o"></i></button>
+            </div>
+        </div>
+    </nav>
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="article-title">Writing testable code in iOS</h1>
+                    <div class="article-meta">
+                        <span><i class="fa fa-calendar"></i> Apr 20, 2019</span>
+                        <span><i class="fa fa-clock-o"></i> 7 min read</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="badge badge-primary">iOS</span>
+                        <span class="badge badge-primary">Testing</span>
+                        <span class="badge badge-primary">Swift</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="article-content bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <article class="glass-card p-4">
+                        <div class="article-body">
+                            <h2>“Imperfect tests, run frequently, are much better than perfect tests that are never written at all” — Martin Fowler</h2>
+                            <p>Writing testable code is a crucial skill for any iOS developer. It helps you catch bugs early, refactor safely, and build robust applications. In this article, I'll share some best practices and patterns for writing testable code in iOS.</p>
+                            <h3>1. Separate Concerns</h3>
+                            <p>Keep your business logic separate from your UI code. Use patterns like MVC, MVVM, or Clean Architecture to achieve this separation.</p>
+                            <h3>2. Use Dependency Injection</h3>
+                            <p>Inject dependencies (like network clients, data stores) instead of hardcoding them. This makes it easy to swap real implementations with mocks or stubs in tests.</p>
+                            <pre><code class="language-swift">class UserService {
+    let apiClient: APIClient
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
+    }
+}
+</code></pre>
+                            <h3>3. Favor Protocols Over Concrete Types</h3>
+                            <p>Define protocols for your dependencies. This allows you to mock them in tests.</p>
+                            <pre><code class="language-swift">protocol APIClient {
+    func fetchData(completion: (Result<Data, Error>) -> Void)
+}
+</code></pre>
+                            <h3>4. Minimize Global State</h3>
+                            <p>Global state makes tests unpredictable. Avoid singletons unless necessary, and prefer passing dependencies explicitly.</p>
+                            <h3>5. Write Small, Focused Functions</h3>
+                            <p>Small functions are easier to test and reason about. Each function should do one thing well.</p>
+                            <h3>6. Use Test Doubles</h3>
+                            <p>Use mocks, stubs, and fakes to simulate dependencies in your tests.</p>
+                            <pre><code class="language-swift">class MockAPIClient: APIClient {
+    func fetchData(completion: (Result<Data, Error>) -> Void) {
+        // Return mock data
+        completion(.success(Data()))
+    }
+}
+</code></pre>
+                            <h3>7. Test ViewModels and Business Logic</h3>
+                            <p>Focus your tests on ViewModels and business logic, not UI code. UI tests are important but can be brittle and slow.</p>
+                            <h3>8. Use XCTest</h3>
+                            <p>Leverage XCTest for unit and UI testing in iOS. Write tests that are fast, reliable, and easy to maintain.</p>
+                            <pre><code class="language-swift">import XCTest
+class UserServiceTests: XCTestCase {
+    func testFetchUserSuccess() {
+        let mockClient = MockAPIClient()
+        let service = UserService(apiClient: mockClient)
+        // ... test logic ...
+    }
+}
+</code></pre>
+                            <h3>Conclusion</h3>
+                            <p>Writing testable code is an investment that pays off in the long run. By following these practices, you'll build apps that are easier to maintain, refactor, and scale.</p>
+                        </div>
+                        <div class="medium-link mt-4">
+                            <a href="https://suryakantsharma84.medium.com/writing-testable-code-in-ios-abcdef123456" class="btn btn-glass" target="_blank">
+                                Read on Medium <i class="fa fa-medium ml-2"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="../../js/creative.js"></script>
+    <script src="../../js/theme-switcher.js"></script>
+    <style>
+        .article-content {
+            padding: 100px 0;
+            min-height: 100vh;
+        }
+        .article-content .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .article-content h1, .article-content h2, .article-content h3 {
+            color: #fff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .article-content p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .article-content ul, .article-content ol {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        .article-content pre {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        .article-content code {
+            color: #e6e6e6;
+        }
+        .article-content .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        .article-content .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .article-content .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .article-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 120px 0 60px;
+            margin-bottom: 0;
+        }
+        .article-title {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        .article-meta span {
+            margin-right: 1.5rem;
+        }
+    </style>
+</body>
+</html> 

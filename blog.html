@@ -76,41 +76,60 @@
     </header>
 
     <!-- Blog Content -->
-    <section class="blog-content">
+    <section class="blog-content bg-dark text-white" style="min-height:100vh;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <div class="article-list">
-                        <article class="article-preview">
-                            <h2><a href="blog/articles/thread-safety-memory-management.html">Mastering Thread Safety and Memory Management in Swift</a></h2>
-                            <div class="article-meta">
-                                <span><i class="fa fa-calendar"></i> February 3, 2024</span>
-                            </div>
-                            <p>Learn about ThreadSanitizer and AddressSanitizer in Xcode, and how to use them effectively for building robust iOS applications.</p>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/actor-isolation-task-detachment.html">Understanding Actor Isolation and Task Detachment in Swift Concurrency</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Oct 26, 2024</span></div>
+                            <p>Concurrency is essential for efficient apps, but it also brings complexity. Learn about actor isolation and task detachment in Swift.</p>
                         </article>
-
-                        <article class="article-preview">
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/static-dynamic-libraries.html">Understanding Static and Dynamic Libraries: A Deep Dive for iOS Developers</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Aug 10, 2024</span></div>
+                            <p>An in-depth look at static and dynamic libraries, their differences, and use cases in iOS.</p>
+                        </article>
+                        <article class="article-preview glass-card mb-4 p-4">
                             <h2><a href="blog/articles/memory-leaks-rapido.html">Debugging and Fixing Memory Leaks in iOS: My Experience with the Fare Estimate Screen in Rapido</a></h2>
-                            <div class="article-meta">
-                                <span><i class="fa fa-calendar"></i> January 15, 2024</span>
-                            </div>
-                            <p>A detailed case study of identifying and resolving memory leaks in a real-world iOS application.</p>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Jul 27, 2024</span></div>
+                            <p>A real-world case study of identifying and resolving memory leaks in an iOS app.</p>
                         </article>
-
-                        <article class="article-preview">
-                            <h2><a href="blog/articles/static-dynamic-libraries.html">Understanding Static and Dynamic Libraries in iOS</a></h2>
-                            <div class="article-meta">
-                                <span><i class="fa fa-calendar"></i> December 20, 2023</span>
-                            </div>
-                            <p>An in-depth exploration of static and dynamic libraries in iOS development, their differences, and when to use each.</p>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/thread-safety-memory-management.html">Mastering Thread Safety and Memory Management in Swift</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Feb 3, 2024</span></div>
+                            <p>How to use ThreadSanitizer and AddressSanitizer in Xcode for robust iOS apps.</p>
                         </article>
-
-                        <article class="article-preview">
-                            <h2><a href="blog/articles/actor-isolation-task-detachment.html">Understanding Actor Isolation and Task Detachment in Swift</a></h2>
-                            <div class="article-meta">
-                                <span><i class="fa fa-calendar"></i> November 10, 2023</span>
-                            </div>
-                            <p>Exploring Swift's actor system and how it helps prevent data races in concurrent programming.</p>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/push-notifications-ios.html">Lesser known facts about Push Notifications in iOS</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Jul 19, 2022</span></div>
+                            <p>Explore advanced push notification concepts and best practices for iOS.</p>
+                        </article>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/property-wrapper-swift.html">Property Wrapper in Swift</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Apr 2, 2021</span></div>
+                            <p>Learn how to use property wrappers to write cleaner, more maintainable Swift code.</p>
+                        </article>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/ads-tracking-ios14.html">Ads Tracking - Before and after iOS 14</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Oct 13, 2020</span></div>
+                            <p>Understand IDFA and how ads tracking changed before and after iOS 14.</p>
+                        </article>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/design-patterns-ios.html">Design Patterns in iOS Swift</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Feb 26, 2020</span></div>
+                            <p>A deep dive into the most common design patterns used in iOS development, with Swift code examples.</p>
+                        </article>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/viewcontroller-lifecycle.html">ViewController Life Cycle in iOS</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Nov 23, 2019</span></div>
+                            <p>Learn about the view controller lifecycle methods and best practices for iOS development.</p>
+                        </article>
+                        <article class="article-preview glass-card mb-4 p-4">
+                            <h2><a href="blog/articles/testable-code-ios.html">Writing testable code in iOS</a></h2>
+                            <div class="article-meta"><span><i class="fa fa-calendar"></i> Apr 20, 2019</span></div>
+                            <p>Best practices and patterns for writing testable code in iOS, inspired by Martin Fowler.</p>
                         </article>
                     </div>
                 </div>
@@ -130,5 +149,42 @@
     <!-- Custom scripts -->
     <script src="js/creative.js"></script>
     <script src="js/theme-switcher.js"></script>
+    <style>
+      .navbar-nav .nav-link {
+        color: #fff !important;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+      }
+      .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+        color: #ffd700 !important;
+      }
+      .glass-card {
+        background: rgba(255,255,255,0.08);
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,255,0.15);
+        box-shadow: 0 8px 32px 0 rgba(31,38,135,0.17);
+      }
+      .blog-content {
+        padding: 100px 0 60px 0;
+        min-height: 100vh;
+      }
+      .article-list {
+        max-height: 100vh;
+        overflow-y: auto;
+        padding-bottom: 2rem;
+      }
+      .article-preview h2 a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .article-preview h2 a:hover {
+        color: #ffd700;
+        text-decoration: underline;
+      }
+      .article-meta {
+        color: #bbb;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+      }
+    </style>
 </body>
 </html> 

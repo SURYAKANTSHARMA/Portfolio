@@ -21,21 +21,36 @@ body, html {
   color: var(--text-main);
 }
 
+body, .blog-content, .main-content {
+  margin-top: 80px !important;
+}
+
 .glass-nav {
-  background: var(--bg-glass-dark);
-  backdrop-filter: blur(var(--glass-blur));
-  box-shadow: var(--shadow);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(90deg, #232526 0%, #414345 100%) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.navbar {
+  min-height: 70px;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background: linear-gradient(90deg, #232526 0%, #414345 100%);
 }
 
 .navbar-brand {
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: bold;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
   letter-spacing: 1px;
   color: var(--primary) !important;
 }
 
 .navbar-nav .nav-link {
+  font-size: 1.1rem;
   font-weight: 600;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   color: var(--text-main) !important;
   margin: 0 0.5rem;
   transition: color 0.2s;
