@@ -446,3 +446,97 @@ header h1, .article-header h1, .blog-header h1 {
   border-color: rgba(240, 95, 64, 0.3);
   color: #F05F40;
 }
+
+body.dark-mode {
+  background: linear-gradient(120deg, #181a1b 0%, #232526 100%) !important;
+  color: #f3f3f3 !important;
+}
+body.dark-mode .glass-nav, body.dark-mode .navbar {
+  background: #111213 !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.28);
+}
+body.dark-mode .navbar-brand {
+  color: #ff5f40 !important;
+}
+body.dark-mode .navbar-nav .nav-link {
+  color: #fff !important;
+}
+body.dark-mode .navbar-nav .nav-link:hover, body.dark-mode .navbar-nav .nav-link.active {
+  color: #ffd700 !important;
+}
+body.dark-mode header, body.dark-mode .article-header, body.dark-mode .blog-header {
+  background: #181a1b !important;
+  color: #fff !important;
+}
+body.dark-mode header h1, body.dark-mode .article-header h1, body.dark-mode .blog-header h1 {
+  color: #fff !important;
+}
+body.dark-mode .hero-section {
+  background: #181a1b !important;
+}
+body.dark-mode .hero-section::after {
+  background: linear-gradient(120deg, rgba(30,34,40,0.9) 0%, rgba(255,95,64,0.1) 100%);
+}
+body.dark-mode .section-glass,
+body.dark-mode .about-card,
+body.dark-mode .glass-card,
+body.dark-mode .timeline-content {
+  background: rgba(30,34,40,0.85) !important;
+  color: #f3f3f3 !important;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+body.dark-mode .section-heading {
+  color: #ff5f40 !important;
+}
+body.dark-mode .btn-glass {
+  background: #ff5f40;
+  color: #fff;
+}
+body.dark-mode .btn-glass:hover, body.dark-mode .btn-glass:focus {
+  background: #e14a28;
+  color: #fff;
+}
+body.dark-mode .btn-outline-glass {
+  color: #ff5f40;
+  border-color: #ff5f40;
+}
+body.dark-mode .btn-outline-glass:hover, body.dark-mode .btn-outline-glass:focus {
+  background: #ff5f40;
+  color: #fff;
+}
+body.dark-mode .form-control, body.dark-mode textarea.form-control {
+  background: #232526;
+  color: #fff;
+  border-color: #444;
+}
+body.dark-mode .form-control:focus {
+  background: #232526;
+  color: #fff;
+  border-color: #ff5f40;
+}
+body.dark-mode .blog-content, body.dark-mode .main-content {
+  background: #232526 !important;
+  color: #f3f3f3 !important;
+}
+body.dark-mode .article-meta {
+  color: #bbb !important;
+}
+body.dark-mode .project-card, body.dark-mode .card {
+  background: rgba(30,34,40,0.85) !important;
+  color: #f3f3f3 !important;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+body.dark-mode .card-footer {
+  background: transparent !important;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+body.dark-mode .timeline-modern::before {
+  background: linear-gradient(180deg, #ff5f40 0%, #232526 100%);
+}
+body.dark-mode .social-icons a {
+  color: #ff5f40;
+}
+body.dark-mode .social-icons a:hover {
+  color: #ffd700;
+}
