@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Understanding Static and Dynamic Libraries: A Deep Dive for iOS Developers">
+  <meta name="author" content="Suryakant Sharma">
+
+  <title>Understanding Static and Dynamic Libraries: A Deep Dive for iOS Developers - Suryakant Sharma's Blog</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts -->
+  <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles -->
+  <link href="../../css/creative.css" rel="stylesheet">
+  <link href="../../css/blog.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="../../index.html">Suryakant Sharma</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="../../index.html#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="../../index.html#skills">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="../../index.html#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="../../index.html#blog">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="../../index.html#timeline">Experience</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="../../index.html#education">Education</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="../../index.html#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h1 class="article-title">Understanding Static and Dynamic Libraries: A Deep Dive for iOS Developers</h1>
+          <div class="article-meta">
+            <span><i class="fa fa-calendar"></i> Aug 10, 2024</span>
+            <span><i class="fa fa-clock-o"></i> 6 min read</span>
+          </div>
+          <div class="article-tags">
+            <span class="badge badge-primary">iOS</span>
+            <span class="badge badge-primary">Libraries</span>
+            <span class="badge badge-primary">Development</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <section class="article-content bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <article class="glass-card p-4">
+            <p>In iOS development, understanding the difference between static and dynamic libraries is crucial for building efficient and maintainable applications. 🏗️ Let's dive deep into these concepts and explore their implications for your iOS projects. 🚀</p>
+
+            <h2>📚 What are Libraries?</h2>
+            <p>Libraries are collections of pre-compiled code that can be reused across multiple applications. They help in:</p>
+            <ul>
+              <li>🔹 <strong>Code reusability</strong> - Write once, use everywhere</li>
+              <li>🔹 <strong>Modular development</strong> - Break down complex applications into manageable pieces</li>
+              <li>🔹 <strong>Reducing development time</strong> - Leverage existing, tested code</li>
+              <li>🔹 <strong>Maintaining consistent functionality</strong> - Ensure uniform behavior across apps</li>
+              <li>🔹 <strong>Better code organization</strong> - Separate concerns and responsibilities</li>
+              <li>🔹 <strong>Easier maintenance</strong> - Update shared code in one place</li>
+            </ul>
+
+            <h2>🔒 Static Libraries</h2>
+            <p>Static libraries (`.a` files) are linked at compile time and become part of your application's binary. When you use a static library:</p>
+            <ul>
+              <li>📦 <strong>The library code is copied into your app's executable</strong></li>
+              <li>📈 <strong>Your app's size increases proportionally to the library size</strong></li>
+              <li>🔄 <strong>Updates require recompiling the entire app</strong></li>
+              <li>💾 <strong>Memory usage is optimized as code is shared</strong></li>
+              <li>⚡ <strong>Faster launch times due to no runtime loading</strong></li>
+              <li>🔒 <strong>Better security as code is embedded in your app</strong></li>
+            </ul>
+
+            <h3>Creating a Static Library</h3>
+            <p>Let's create a simple static library for handling network requests:</p>
+            <pre><code class="language-swift">// NetworkManager.swift
+public class NetworkManager {
+    public static let shared = NetworkManager()
+    
+    private init() {}
+    
+    public func fetchData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "NetworkError", code: -1, userInfo: nil)))
+                return
+            }
+            
+            completion(.success(data))
+        }.resume()
+    }
+}
+
+// Usage in your app
+NetworkManager.shared.fetchData(from: url) { result in
+    switch result {
+    case .success(let data):
+        // Handle data
+    case .failure(let error):
+        // Handle error
+    }
+}</code></pre>
+
+            <p>To create a static library in Xcode:</p>
+            <ol>
+              <li>📱 <strong>Create a new project</strong> and select "Framework & Library"</li>
+              <li>⚙️ <strong>Choose "Static Library"</strong></li>
+              <li>📄 <strong>Add your source files</strong></li>
+              <li>🔨 <strong>Build the library</strong></li>
+              <li>📦 <strong>Add the library to your project's "Link Binary With Libraries" build phase</strong></li>
+              <li>🔍 <strong>Add the library's header files to your project's "Header Search Paths"</strong></li>
+            </ol>
+
+            <h2>🔄 Dynamic Libraries</h2>
+            <p>Dynamic libraries (`.dylib` files) are loaded at runtime and can be shared between multiple applications. Key characteristics include:</p>
+            <ul>
+              <li>📉 <strong>Smaller app size</strong> as the library is loaded separately</li>
+              <li>🔄 <strong>Ability to update the library without recompiling the app</strong></li>
+              <li>⚠️ <strong>Potential for version conflicts</strong></li>
+              <li>💾 <strong>Additional memory overhead</strong></li>
+              <li>⏱️ <strong>Slightly slower launch times</strong> due to runtime loading</li>
+              <li>🔄 <strong>Better for frequently updated code</strong></li>
+            </ul>
+
+            <h3>Using Dynamic Libraries</h3>
+            <p>Here's an example of creating and using a dynamic library for image processing:</p>
+            <pre><code class="language-swift">// ImageProcessor.swift
+public class ImageProcessor {
+    public static let shared = ImageProcessor()
+    
+    private init() {}
+    
+    public func applyFilter(to image: UIImage, filter: ImageFilter) -> UIImage? {
+        guard let cgImage = image.cgImage else { return nil }
+        
+        let context = CIContext()
+        let ciImage = CIImage(cgImage: cgImage)
+        
+        let filter = CIFilter(name: filter.rawValue)
+        filter?.setValue(ciImage, forKey: kCIInputImageKey)
+        
+        guard let outputImage = filter?.outputImage,
+              let cgOutputImage = context.createCGImage(outputImage, from: outputImage.extent) else {
+            return nil
+        }
+        
+        return UIImage(cgImage: cgOutputImage)
+    }
+}
+
+// Usage in your app
+let processedImage = ImageProcessor.shared.applyFilter(to: originalImage, filter: .sepia)</code></pre>
+
+            <h2>📦 Framework vs Library</h2>
+            <p>In iOS development, frameworks are more commonly used than raw libraries. Frameworks are:</p>
+            <ul>
+              <li>📚 <strong>Bundles containing libraries, headers, and resources</strong></li>
+              <li>🔄 <strong>Easier to manage and distribute</strong></li>
+              <li>🔌 <strong>Support both static and dynamic linking</strong></li>
+              <li>📈 <strong>Provide better versioning support</strong></li>
+              <li>🎨 <strong>Can include assets and resources</strong></li>
+              <li>📱 <strong>Better integration with Xcode</strong></li>
+            </ul>
+
+            <h3>Creating a Framework</h3>
+            <p>Let's create a framework for handling user authentication:</p>
+            <pre><code class="language-swift">// AuthManager.swift
+public class AuthManager {
+    public static let shared = AuthManager()
+    
+    private init() {}
+    
+    public func signIn(email: String, password: String) async throws -> User {
+        // Implementation
+    }
+    
+    public func signOut() {
+        // Implementation
+    }
+    
+    public func resetPassword(email: String) async throws {
+        // Implementation
+    }
+}
+
+// Usage in your app
+do {
+    let user = try await AuthManager.shared.signIn(email: "user@example.com", password: "password")
+    // Handle successful sign in
+} catch {
+    // Handle error
+}</code></pre>
+
+            <h2>💡 Best Practices</h2>
+            <p>When choosing between static and dynamic libraries, consider:</p>
+            <ul>
+              <li>📱 <strong>App size requirements</strong> - Static libraries increase app size</li>
+              <li>🔄 <strong>Update frequency needs</strong> - Dynamic libraries are better for frequent updates</li>
+              <li>💾 <strong>Memory constraints</strong> - Static libraries are more memory efficient</li>
+              <li>🔒 <strong>Security requirements</strong> - Static libraries are more secure</li>
+              <li>⚡ <strong>Performance needs</strong> - Static libraries have faster launch times</li>
+              <li>📦 <strong>Distribution method</strong> - Consider how you'll distribute updates</li>
+            </ul>
+
+            <h2>🌐 Real-World Example</h2>
+            <p>Here's how to integrate a third-party library in your iOS project using CocoaPods:</p>
+            <pre><code class="language-ruby"># Podfile
+platform :ios, '13.0'
+use_frameworks!
+
+target 'YourApp' do
+  pod 'Alamofire'
+  pod 'SDWebImage'
+end</code></pre>
+
+            <p>And using Swift Package Manager:</p>
+            <pre><code class="language-swift">// Package.swift
+dependencies: [
+    .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0"),
+    .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.0.0")
+]</code></pre>
+
+            <h2>🔍 Performance Considerations</h2>
+            <p>When working with libraries, keep these performance aspects in mind:</p>
+            <ul>
+              <li>⚡ <strong>Launch time impact</strong> - Dynamic libraries can slow down app launch</li>
+              <li>💾 <strong>Memory usage</strong> - Consider the memory footprint of your libraries</li>
+              <li>📦 <strong>Binary size</strong> - Monitor your app's final size</li>
+              <li>🔄 <strong>Update mechanism</strong> - Plan for library updates</li>
+            </ul>
+
+            <h2>🔧 Debugging Tips</h2>
+            <p>Common issues and solutions when working with libraries:</p>
+            <ul>
+              <li>🔍 <strong>Symbol conflicts</strong> - Use unique prefixes for your symbols</li>
+              <li>📱 <strong>Architecture mismatches</strong> - Ensure all libraries support your target architectures</li>
+              <li>🔄 <strong>Version conflicts</strong> - Use dependency management tools</li>
+              <li>⚡ <strong>Performance issues</strong> - Profile your app with Instruments</li>
+            </ul>
+
+            <h2>🚀 Conclusion</h2>
+            <p>Understanding the differences between static and dynamic libraries is crucial for iOS development. Choose the right type based on your app's requirements, considering factors like:</p>
+            <ul>
+              <li>📱 <strong>App size and performance needs</strong></li>
+              <li>🔄 <strong>Update frequency requirements</strong></li>
+              <li>💾 <strong>Memory constraints</strong></li>
+              <li>🔒 <strong>Security considerations</strong></li>
+            </ul>
+
+            <p>Remember that frameworks often provide a better solution than raw libraries, offering more features and better integration with Xcode. 🛠️</p>
+
+            <div class="article-tags">
+              <span class="badge badge-primary">iOS</span>
+              <span class="badge badge-primary">Libraries</span>
+              <span class="badge badge-primary">Development</span>
+              <span class="badge badge-primary">Swift</span>
+              <span class="badge badge-primary">Xcode</span>
+            </div>
+
+            <div class="article-footer mt-4">
+              <a href="https://suryakantsharma84.medium.com/understanding-static-and-dynamic-libraries-a-deep-dive-for-ios-developers" class="btn btn-glass" target="_blank">Read on Medium <i class="fa fa-medium ml-2"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
+  <script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+  <!-- Custom scripts -->
+  <script src="../../js/creative.min.js"></script>
+
+  <style>
+    .article-content {
+      padding: 100px 0;
+      min-height: 100vh;
+    }
+    
+    .article-content .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+    
+    .article-content h1, 
+    .article-content h2, 
+    .article-content h3 {
+      color: #fff;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .article-content p {
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content ul, 
+    .article-content ol {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content pre {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .article-content code {
+      color: #e6e6e6;
+    }
+    
+    .article-content .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+    
+    .article-content .btn-glass {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+    
+    .article-content .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .article-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 120px 0 60px;
+      margin-bottom: 0;
+    }
+    
+    .article-title {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .article-meta {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1rem;
+    }
+    
+    .article-meta span {
+      margin-right: 1.5rem;
+    }
+  </style>
+</body>
+</html> 

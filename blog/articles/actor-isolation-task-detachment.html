@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Understanding Actor Isolation and Task Detachment in Swift Concurrency - iOS Development Article by Suryakant Sharma">
+    <meta name="author" content="Suryakant Sharma">
+    
+    <title>Understanding Actor Isolation and Task Detachment in Swift Concurrency - Suryakant Sharma's Blog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts -->
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="../../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="../../css/creative.css" rel="stylesheet">
+    <link href="../../css/blog.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="../../index.html">Suryakant Sharma</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#timeline">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../education.html">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html#contact">Contact</a>
+                    </li>
+                </ul>
+                <button id="theme-toggle" aria-label="Toggle dark/light mode">
+                    <i class="fa fa-moon-o"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="article-title">🌐 Understanding Actor Isolation and Task Detachment in Swift Concurrency</h1>
+                    <div class="article-meta">
+                        <span><i class="fa fa-calendar"></i> Oct 26, 2024</span>
+                        <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                    </div>
+                    <div class="article-tags">
+                        <span class="badge badge-primary">Swift</span>
+                        <span class="badge badge-primary">Concurrency</span>
+                        <span class="badge badge-primary">iOS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <section class="article-content bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <article class="glass-card p-4">
+                        <p>Concurrency is essential for efficient apps, but it also brings complexity. 🌀In Swift, the concurrency model has evolved to provide safer ways to handle multi-threading, primarily through <strong>actors</strong> and <strong>Task</strong> constructs. These tools enable developers to manage concurrency safely and efficiently. Let's explore Task and Task.detached, focusing on how they behave in isolated and non-isolated contexts and the role of actor isolation.👩‍💻👨‍💻</p>
+
+                        <h2>🎭 Actors and Isolation</h2>
+                        <p>Actors in Swift ensure state safety by isolating properties and methods. 🛡️Only one task can interact with an actor's state at a time, preventing race conditions. When you mark a class or struct with @MainActor, it ensures its properties and methods are accessed on the main thread.🖥️</p>
+
+                        <pre><code class="language-swift">@MainActor  
+class ViewModel {  
+    var name: String = "Swift"  
+      
+    func updateName() {  
+        Task {  
+            self.name = "Updated Swift"  // ✅ Safe: runs on the main actor's context.  
+        }  
+    }  
+}</code></pre>
+
+                        <p>In this example, the actor ensures that any modifications to the name property occur on the main thread. Task inherits this context, meaning it continues running within the main actor's environment.</p>
+
+                        <h2>🚀 Non-Isolated Contexts with Task.detached</h2>
+                        <p>Unlike Task, Task.detached doesn't inherit the actor's context or the thread it was created from. This makes it useful for background tasks, but accessing actor-isolated properties directly can lead to unsafe behavior.⚠️</p>
+
+                        <pre><code class="language-swift">@MainActor  
+class ViewModel {  
+    var name: String = "Swift"  
+      
+    func updateName() {  
+        Task.detached {  
+            self.name = "Updated Swift"   // ❌ Unsafe: Detached task may access this property from a background thread.  
+        }  
+    }  
+}</code></pre>
+
+                        <p>Here, Task.detached <strong>ignores the main actor's context</strong> 🧩, meaning self.name could be accessed on a background thread, risking race conditions or UI crashes. 🛑</p>
+
+                        <h2>💪 Why Use Task.detached?</h2>
+                        <p>Task.detached can be powerful when:</p>
+                        <ul>
+                            <li>🔹 You <strong>don't need</strong> to interact with actor-isolated properties.</li>
+                            <li>🔹 You want <strong>complete control</strong> over thread execution for non-UI-related work.</li>
+                        </ul>
+                        <p>Using it can optimize background processing 🔧, but managing shared state and actor-isolated properties requires care to avoid concurrency issues. 🌈</p>
+
+                        <h2>🛡️ Ensuring Thread Safety with await</h2>
+                        <p>To safely access <strong>actor-isolated properties within a detached task</strong>, use await. ⏳ The await keyword ensures that the specific property access occurs within the correct thread or actor context.</p>
+
+                        <pre><code class="language-swift">Task.detached(priority: .background) {  
+    let pageName = await self.monetisationScreenName  // 🚦 Switches to main thread for safe access  
+    let adExitData = AdExitData(pageName: pageName)  
+    // 🏁 Remaining code continues on the background thread.  
+}</code></pre>
+
+                        <p>In this example, <strong>only the property access that requires the main thread (self.monetisationScreenName) switches to it</strong>. The remaining code continues on the background thread, reducing performance overhead. 🌟</p>
+
+                        <h2>🤔 Does await Run the Whole Task on the Main Thread?</h2>
+                        <p>No, using await doesn't force the entire task to run on the main thread. 🚫 Only the specific lines of code requiring actor-isolated property access will temporarily switch context. Once completed, the task resumes on the background thread (or the thread it originally started on). 🛠️</p>
+
+                        <p>For example:</p>
+
+                        <pre><code class="language-swift">Task.detached(priority: .background) {  
+    let pageName = await self.monetisationScreenName  // 🔄 Only this access switches to main thread  
+    let adExitData = AdExitData(pageName: pageName)    // 🛤️ Background thread continues here  
+}</code></pre>
+
+                        <p>The task <strong>jumps to the main thread briefly</strong> to access monetisationScreenName, then resumes processing on the background thread. 🌐</p>
+
+                        <h2>🌟 Swift 6 Changes to Actor Isolation</h2>
+                        <p>In Swift 6, <strong>accessing or mutating an actor-isolated property</strong> (like telemetryUuid marked with @MainActor) from a non-isolated context, such as within a Task.detached, is restricted. 🧩 This is because <strong>detached tasks don't inherit the actor's isolation context</strong>, and telemetryUuid belongs to the main actor.</p>
+
+                        <p>Here's the example of error scenario:</p>
+
+                        <pre><code class="language-swift">Task.detached(priority: .background) {  
+    self.telemetryUuid = telemetryUuid  // 🚫 Error  
+}</code></pre>
+
+                        <p><strong>Fix</strong>: Use await to switch context properly ✔️</p>
+
+                        <p>To safely mutate <strong>actor-isolated properties</strong>, wrap the code within await MainActor.run to ensure it executes on the main actor. 🛠️</p>
+
+                        <pre><code class="language-swift">Task.detached(priority: .background) {  
+    await MainActor.run {  
+        self.telemetryUuid = telemetryUuid  // ✅ Safe, on main actor  
+    }  
+}</code></pre>
+
+                        <p>In this fix, the MainActor.run block ensures the mutation occurs on the main actor, avoiding concurrency issues. 💡</p>
+
+                        <h2>📝 Best Practices for iOS Developers</h2>
+                        <ol>
+                            <li><strong>Use Task for UI-related operations</strong>: 🖥️ It ensures the task inherits the current actor (e.g., the main actor), making it safe to access UI-bound properties.</li>
+                            <li><strong>Use Task.detached cautiously</strong>: Detached tasks are great for background work, but require careful management to avoid thread safety issues. 🧠</li>
+                            <li><strong>Always use await for actor-isolated properties</strong>: When accessing actor-isolated properties within a detached task, ensure you're using await to switch back to the appropriate thread. 🔒</li>
+                            <li><strong>Avoid accessing UI elements in detached tasks</strong>: UI-related properties should only be modified on the main thread. If you need to update the UI from a background task, jump back to the main thread using Task or await. 🎨</li>
+                        </ol>
+
+                        <h2>🚀 Summary</h2>
+                        <p>Swift's actor isolation and concurrency model, particularly with Task and Task.detached, provide developers with powerful tools to manage complex multi-threading scenarios. 🔥 Understanding when to use await and how Swift manages thread contexts is key to building safe, efficient, and responsive apps. 💡 Always ensure thread safety by handling actor-isolated properties carefully, especially when dealing with UI components. 🛠️</p>
+
+                        <p>Connect with me on LinkedIn/twitter for more discussions on iOS development and best practices. Let's continue the conversation! 📱💻</p>
+
+                        <p>Happy Coding! 🚀</p>
+
+                        <div class="article-tags">
+                            <span class="badge badge-primary">Swift</span>
+                            <span class="badge badge-primary">IOS</span>
+                            <span class="badge badge-primary">Programming</span>
+                            <span class="badge badge-primary">IOS App Development</span>
+                            <span class="badge badge-primary">Swiftui</span>
+                        </div>
+
+                        <div class="article-footer mt-4">
+                            <a href="https://suryakantsharma84.medium.com/understanding-actor-isolation-and-task-detachment-in-swift-concurrency-effdcf4bd180" class="btn btn-glass" target="_blank">Read on Medium <i class="fa fa-medium ml-2"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="../../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="../../js/creative.js"></script>
+    <script src="../../js/theme-switcher.js"></script>
+
+    <style>
+        .article-content {
+            padding: 100px 0;
+            min-height: 100vh;
+        }
+        
+        .article-content .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        .article-content h1, 
+        .article-content h2, 
+        .article-content h3 {
+            color: #fff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, 
+        .article-content ol {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content pre {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .article-content code {
+            color: #e6e6e6;
+        }
+        
+        .article-content .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        
+        .article-content .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .article-content .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .article-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 120px 0 60px;
+            margin-bottom: 0;
+        }
+        
+        .article-title {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-meta {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .article-meta span {
+            margin-right: 1.5rem;
+        }
+    </style>
+</body>
+</html> 

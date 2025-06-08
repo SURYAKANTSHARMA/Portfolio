@@ -8,10 +8,13 @@
     <meta name="description" content="About Suryakant Sharma">
     <meta name="author" content="Suryakant Sharma">
 
-    <title>Suryakant Sharma</title>
+    <title>Suryakant Sharma | iOS Engineer Portfolio</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Inter:400,600,700&display=swap" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -22,7 +25,7 @@
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/creative.min.css" rel="stylesheet">
+    <link href="css/creative.css" rel="stylesheet">
 
     <!-- Custom scripts -->
     <script src="js/date.js"></script>
@@ -32,7 +35,7 @@
   <body id="page-top">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Suryakant Sharma</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,320 +47,351 @@
               <a class="nav-link js-scroll-trigger" href="#about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Coding Skills</a>
+              <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#timeline">Timeline</a>
+              <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#blog">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#timeline">Experience</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="education.html">Education</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
           </ul>
+          <button id="theme-toggle" aria-label="Toggle dark/light mode" style="margin-left: 1rem;">
+            <i class="fa fa-moon-o"></i>
+          </button>
         </div>
       </div>
     </nav>
 
-    <header class="masthead text-center text-white d-flex">
-      <div class="container my-auto">
-        <div class="row">
-          <div class="col-lg-10 mx-auto">
-            <h1 id = "greetings" class="text-uppercase">
-              <strong>
-                <script>
-                  getGreetings();
-                </script>
-              </strong>
-              <!-- <strong>WELCOME TO CODING GROUND</strong> -->
-            </h1>
-            <hr>
-          </div>
-          <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">“Quality is much better than quantity. One home run is much better than two doubles.” - Steve Jobs</p>
-            <p class="text-faded mb-5">“If Google teaches you anything, it’s that small ideas can be big.” - Ben Silbermann</p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">KNOW MORE</a>
-          </div>
-        </div>
+    <!-- Hero Section -->
+    <header class="hero-section d-flex align-items-center justify-content-center text-white" style="background-image: url('img/header.jpg');">
+      <div class="container text-center">
+        <img src="img/portfolio/thumbnails/1.jpg" alt="Profile Photo" class="profile-img mb-4">
+        <h1 class="display-4 font-weight-bold mb-3">Suryakant Sharma</h1>
+        <p class="lead mb-4">iOS Engineer | Open Source & Swift Enthusiast | Product Builder</p>
+        <a href="#about" class="btn btn-glass btn-xl js-scroll-trigger">Discover My Work <i class="fa fa-arrow-down ml-2"></i></a>
       </div>
     </header>
 
-    <section class="bg-primary" id="about">
+    <!-- About Section -->
+    <section id="about" class="section-glass py-5">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-12 mx-auto text-center">
-            <h2 class="section-heading text-white">HI EVERYONE</h2>
-            <hr class="light my-4">
-            <p class="text-faded mb-4">My name is Suryakant Sharma. Open Source & Swift Enthusiast | iOS Engineer | Microsoft Student Partner| Love to code with cup of tea. Write code with my whole heart.I am an iOS developer who prefers quality over quantity.</p>
-            <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Coding Skills</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="services">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading">Coding Skills</h2>
-            <hr class="my-4">
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fa fa-4x fa-edit text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Xcode</h3>
-              <p class="text-muted mb-0">Xcode is an integrated development environment for macOS developed by Apple for developing software for macOS, iOS, watchOS and tvOS.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fa fa-4x fa-code text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Swift</h3>
-              <p class="text-muted mb-0">Swift is a general purpose, programming language developed by Apple for iOS, macOS, watchOS, tvOS and Linux.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fa fa-4x fa-code text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Objective C</h3>
-              <p class="text-muted mb-0">Objective C is a general-purpose, object-oriented programming language that adds Smalltalk-style messaging to the C programming language.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fa fa-4x fa-code text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Swift UI</h3>
-              <p class="text-muted mb-0">SwiftUI is a user interface toolkit that lets us design apps in a declarative way. It provides a way to build user interfaces across all Apple platforms with the power of Swift.</p>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            <div class="about-card glass-card p-4">
+              <h2 class="section-heading mb-3">Hi, I'm Suryakant 👋</h2>
+              <p class="mb-4">Open Source & Swift Enthusiast | iOS Engineer | Microsoft Student Partner | Love to code with a cup of tea. I write code with my whole heart and prefer quality over quantity. Download my <a href="Suryakant_Sharma_Resume.pdf" class="btn btn-outline-glass btn-sm ml-2" download>Resume <i class="fa fa-download"></i></a></p>
+              <ul class="about-highlights list-inline mb-0">
+                <li class="list-inline-item"><i class="fa fa-briefcase text-primary"></i> 8+ Years Experience</li>
+                <li class="list-inline-item"><i class="fa fa-apple text-primary"></i> iOS, Swift, SwiftUI</li>
+                <li class="list-inline-item"><i class="fa fa-users text-primary"></i> Team Leader</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- <section class="p-0" id="portfolio">
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
       <div class="container">
-        <div class="row">
-         <div class="col-lg-12 mx-auto text-center m-md-4">
-            <h2 class="section-heading">Recent Projects</h2>
-            <hr class="my-4">
-         </div>
-        </div>
-      </div>
-
-      <div class="container-fluid p-0">
-        <div class="row no-gutters popup-gallery">
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
+        <div class="row mb-4">
+          <div class="col text-center">
+            <h2 class="section-heading">Skills</h2>
+            <p class="text-muted">Technologies & Tools I Use</p>
           </div>
         </div>
-      </div>
-    </section> -->
-
-   
-    <section id="timeline" class="bg-primary">
-      <div class="timeline">
-        <div class="container right">
-          <div class="content">
-            <h2>June 2016 - February 2018</h2>
-            <p>Software Engineer at Click Labs</p>
+        <div class="row justify-content-center">
+          <div class="col-md-3 col-6 mb-4">
+            <div class="skill-card glass-card text-center p-4">
+              <i class="fa fa-apple fa-3x text-primary mb-2"></i>
+              <h5>iOS / Xcode</h5>
+              <div class="progress skill-progress mb-2"><div class="progress-bar bg-primary" style="width: 95%"></div></div>
+              <small>95%</small>
+            </div>
           </div>
-        </div>
-    
-        <div class="container left">
-          <div class="content">
-            <h2>March 2018 - February 2019</h2>
-            <p>Software Engineer at Ablysoft</p>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="skill-card glass-card text-center p-4">
+              <i class="fa fa-code fa-3x text-primary mb-2"></i>
+              <h5>Swift / SwiftUI</h5>
+              <div class="progress skill-progress mb-2"><div class="progress-bar bg-primary" style="width: 90%"></div></div>
+              <small>90%</small>
+            </div>
           </div>
-        </div>
-    
-        <div class="container right">
-          <div class="content">
-            <h2>March 2019 - January 2021</h2>
-            <p>Software Engineer at Tokopedia</p>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="skill-card glass-card text-center p-4">
+              <i class="fa fa-cogs fa-3x text-primary mb-2"></i>
+              <h5>Objective-C</h5>
+              <div class="progress skill-progress mb-2"><div class="progress-bar bg-primary" style="width: 80%"></div></div>
+              <small>80%</small>
+            </div>
           </div>
-        </div>
-    
-        <div class="container left">
-          <div class="content">
-            <h2>February 2021 - September 2022</h2>
-            <p>Senior Software Engineer at INDMoney</p>
-          </div>
-        </div>
-    
-        <div class="container right">
-          <div class="content">
-            <h2>September 2022 - Present</h2>
-            <p>Senior Product Engineer at Rapido</p>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="skill-card glass-card text-center p-4">
+              <i class="fa fa-cloud fa-3x text-primary mb-2"></i>
+              <h5>Cloud & APIs</h5>
+              <div class="progress skill-progress mb-2"><div class="progress-bar bg-primary" style="width: 75%"></div></div>
+              <small>75%</small>
+            </div>
           </div>
         </div>
       </div>
     </section>
-<section id="contact">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 mx-auto text-center">
-        <h2 class="section-heading">Let's Get In Touch!</h2>
-        <hr class="my-4">
-        <p class="mb-5">Ready to start your next project with me? That's great! Give me a call or send an email and I will get back to you as soon as possible!</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 text-center">
-        <a href="https://twitter.com/suryakan84" target="_blank">
-          <i class="fa fa-twitter fa-3x sr-contact" aria-hidden="true"></i>
-        </a>
-      </div>
-          <div class="col-lg-4 text-center">
-            <a href="mailto:suryakantsharma84@gmail.com">
-              <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-            </a>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5 bg-light">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col text-center">
+            <h2 class="section-heading">Projects</h2>
+            <p class="text-muted">Featured Work & Open Source Contributions</p>
           </div>
-           <div class="col-lg-4 text-center">
-        <a href="https://www.linkedin.com/in/surya-kant-22896481" target="_blank">
-          <i class="fa fa-linkedin fa-3x sr-contact"></i>
-        </a>
-      </div>
-
-       <!-- HackerRank Icon -->
-       <div class="col-lg-4 text-center">
-        <a href="https://www.hackerrank.com/suryakantsharma1" target="_blank">
-          <i class="fa fa-code fa-3x sr-contact"></i>
-        </a>
-      </div>
-      
-      <div class="col-lg-4 text-center">
-        <a href="https://github.com/SURYAKANTSHARMA" target="_blank">
-          <i class="fa fa-github fa-3x sr-contact"></i>
-        </a>
-      </div>
-      <div class="col-lg-4 text-center">
-        <a href="https://stackoverflow.com/users/3331528/suryakantsharma" target="_blank">
-          <i class="fa fa-stack-overflow fa-3x sr-contact"></i>
-        </a>
-      </div>
-      <div class="col-lg-4 text-center">
-        <a href="https://suryakantsharma84.medium.com/" target="_blank">
-          <i class="fa fa-medium fa-3x sr-contact"></i>
-        </a>
-      </div>
-
-      
-      <!-- Instagram Icon -->
-      <div class="col-lg-4 text-center">
-        <a href="https://www.instagram.com/suryakantsharma84/" target="_blank">
-          <i class="fa fa-instagram fa-3x sr-contact"></i>
-        </a>
-      </div>
-
-        <!-- LeetCode Icon -->
-        <div class="col-lg-4 text-center">
-          <a href="https://leetcode.com/u/Suryakant84/" target="_blank">
-            <i class="fa fa-code fa-3x sr-contact"></i>
-          </a>
         </div>
-
-        <div id="about">
-          <h2>About Me</h2>
-          <p>
-            I'm an iOS developer with expertise in building robust and user-friendly applications. You can 
-            <a href="Suryakant_Sharma_Resume.pdf" download>download my resume</a> to learn more about my professional experience and projects.
-          </p>
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-8 mb-4">
+            <div class="card project-card glass-card h-100">
+              <img class="card-img-top" src="img/portfolio/fullsize/2.jpg" alt="CountryPicker">
+              <div class="card-body">
+                <h4 class="card-title">CountryPicker</h4>
+                <p class="card-text">A simple country picker with flags for iOS applications. Popular open-source library with 300+ GitHub stars.</p>
+                <div class="project-tags">
+                  <span class="badge badge-primary">Swift</span>
+                  <span class="badge badge-primary">UIKit</span>
+                  <span class="badge badge-primary">Open Source</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="projects/countrypicker.html" class="btn btn-glass btn-sm">View Details</a>
+                <a href="https://github.com/SURYAKANTSHARMA/CountryPicker" class="btn btn-outline-glass btn-sm" target="_blank">GitHub <i class="fa fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-8 mb-4">
+            <div class="card project-card glass-card h-100">
+              <img class="card-img-top" src="img/portfolio/fullsize/4.jpg" alt="UberAnimation">
+              <div class="card-body">
+                <h4 class="card-title">UberAnimation</h4>
+                <p class="card-text">Uber-like animation for ride booking UI in iOS. Smooth, interactive, and customizable animation inspired by the Uber app.</p>
+                <div class="project-tags">
+                  <span class="badge badge-primary">Swift</span>
+                  <span class="badge badge-primary">Animation</span>
+                  <span class="badge badge-primary">UIKit</span>
+                  <span class="badge badge-primary">Open Source</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="https://github.com/SURYAKANTSHARMA/UberAnimation" class="btn btn-outline-glass btn-sm" target="_blank">GitHub <i class="fa fa-github"></i></a>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="row mt-3">
+          <div class="col text-center">
+            <a href="https://github.com/SURYAKANTSHARMA" class="btn btn-glass btn-lg" target="_blank">View More Projects on GitHub <i class="fa fa-github ml-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    </div>
-  </div>
+    <!-- Timeline Section -->
+    <section id="timeline" class="section-glass py-5 bg-light">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col text-center">
+            <h2 class="section-heading">Experience</h2>
+          </div>
+        </div>
+        <div class="timeline-modern">
+          <div class="timeline-item left">
+            <div class="timeline-content glass-card">
+              <img src="img/portfolio/thumbnails/1.jpg" alt="Click Labs" class="timeline-logo">
+              <h5>Software Engineer</h5>
+              <span class="text-muted">Click Labs</span>
+              <span class="timeline-date">June 2016 - Feb 2018</span>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content glass-card">
+              <img src="img/portfolio/thumbnails/2.jpg" alt="Ablysoft" class="timeline-logo">
+              <h5>Software Engineer</h5>
+              <span class="text-muted">Ablysoft</span>
+              <span class="timeline-date">Mar 2018 - Feb 2019</span>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content glass-card">
+              <img src="img/portfolio/thumbnails/3.jpg" alt="Tokopedia" class="timeline-logo">
+              <h5>Software Engineer</h5>
+              <span class="text-muted">Tokopedia</span>
+              <span class="timeline-date">Mar 2019 - Jan 2021</span>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content glass-card">
+              <img src="img/portfolio/thumbnails/4.jpg" alt="INDMoney" class="timeline-logo">
+              <h5>Senior Software Engineer</h5>
+              <span class="text-muted">INDMoney</span>
+              <span class="timeline-date">Feb 2021 - Sep 2022</span>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content glass-card">
+              <img src="img/portfolio/thumbnails/5.jpg" alt="Rapido" class="timeline-logo">
+              <h5>Senior Product Engineer</h5>
+              <span class="text-muted">Rapido</span>
+              <span class="timeline-date">Sep 2022 - Present</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</section>
+    <!-- Blog Section -->
+    <section id="blog" class="py-5 bg-dark text-white">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col text-center">
+            <h2 class="section-heading">Blog</h2>
+            <p class="text-muted">Latest articles on iOS, Swift, and more</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card glass-card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Apple Design Patterns in iOS Swift</h5>
+                <p class="card-text">A deep dive into the most common design patterns used in iOS development, with Swift code examples.</p>
+              </div>
+              <div class="card-footer">
+                <a href="blog/articles/design-patterns-ios.html" class="btn btn-glass btn-sm">Read Full Article <i class="fa fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card glass-card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Property Wrapper in Swift</h5>
+                <p class="card-text">Learn how to use property wrappers to write cleaner, more maintainable Swift code.</p>
+              </div>
+              <div class="card-footer">
+                <a href="blog/articles/property-wrapper-swift.html" class="btn btn-glass btn-sm">Read Full Article <i class="fa fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card glass-card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Lesser known facts about Push Notifications in iOS</h5>
+                <p class="card-text">Explore advanced push notification concepts and best practices for iOS.</p>
+              </div>
+              <div class="card-footer">
+                <a href="blog/articles/push-notifications-ios.html" class="btn btn-glass btn-sm">Read Full Article <i class="fa fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card glass-card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Mastering Thread Safety and Memory Management in Swift</h5>
+                <p class="card-text">How to use ThreadSanitizer and AddressSanitizer in Xcode for robust iOS apps.</p>
+              </div>
+              <div class="card-footer">
+                <a href="blog/articles/thread-safety-memory-management.html" class="btn btn-glass btn-sm">Read Full Article <i class="fa fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card glass-card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Debugging and Fixing Memory Leaks in iOS: My Experience with the Fare Estimate Screen in Rapido</h5>
+                <p class="card-text">A real-world case study of identifying and resolving memory leaks in an iOS app.</p>
+              </div>
+              <div class="card-footer">
+                <a href="blog/articles/memory-leaks-rapido.html" class="btn btn-glass btn-sm">Read Full Article <i class="fa fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card glass-card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Understanding Static and Dynamic Libraries in iOS</h5>
+                <p class="card-text">An in-depth look at static and dynamic libraries, their differences, and use cases in iOS.</p>
+              </div>
+              <div class="card-footer">
+                <a href="blog/articles/static-dynamic-libraries.html" class="btn btn-glass btn-sm">Read Full Article <i class="fa fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card glass-card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Understanding Actor Isolation and Task Detachment in Swift</h5>
+                <p class="card-text">Explore Swift's actor system and how it helps prevent data races in concurrent programming.</p>
+              </div>
+              <div class="card-footer">
+                <a href="blog/articles/actor-isolation-task-detachment.html" class="btn btn-glass btn-sm">Read Full Article <i class="fa fa-arrow-right ml-2"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <a href="blog.html" class="btn btn-glass btn-lg">View All Articles <i class="fa fa-arrow-right ml-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col text-center">
+            <h2 class="section-heading">Let's Get In Touch!</h2>
+            <p class="text-muted">Ready to start your next project with me? Reach out via the form or connect on social media.</p>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <form class="glass-card p-4" action="mailto:suryakantsharma84@gmail.com" method="POST" enctype="text/plain">
+              <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="4" placeholder="Your Message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-glass btn-block">Send Message <i class="fa fa-paper-plane ml-2"></i></button>
+            </form>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center">
+          <div class="col-lg-8 text-center">
+            <div class="social-icons">
+              <a href="https://twitter.com/suryakan84" target="_blank" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/surya-kant-22896481" target="_blank" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+              <a href="https://github.com/SURYAKANTSHARMA" target="_blank" aria-label="GitHub"><i class="fa fa-github"></i></a>
+              <a href="https://stackoverflow.com/users/3331528/suryakantsharma" target="_blank" aria-label="Stack Overflow"><i class="fa fa-stack-overflow"></i></a>
+              <a href="https://suryakantsharma84.medium.com/" target="_blank" aria-label="Medium"><i class="fa fa-medium"></i></a>
+              <a href="https://www.instagram.com/suryakantsharma84/" target="_blank" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+              <a href="https://leetcode.com/u/Suryakant84/" target="_blank" aria-label="LeetCode"><i class="fa fa-code"></i></a>
+              <a href="https://www.hackerrank.com/suryakantsharma1" target="_blank" aria-label="HackerRank"><i class="fa fa-code"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -370,7 +404,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>
-
+    <script src="js/theme-switcher.js"></script>
   </body>
 
 </html>

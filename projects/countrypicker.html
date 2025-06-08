@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>CountryPicker | Suryakant Sharma</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Inter:400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+  <!-- Plugin CSS -->
+  <link href="../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/creative.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top glass-nav" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">Suryakant Sharma</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Project Header -->
+  <header class="project-header py-5 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1>CountryPicker</h1>
+          <p class="lead">A simple country picker with flags for iOS applications</p>
+          <div class="project-meta mt-3">
+            <span><i class="fa fa-calendar"></i> 2020</span>
+            <span><i class="fa fa-code"></i> Swift, UIKit</span>
+            <span><i class="fa fa-github"></i> <a href="https://github.com/SURYAKANTSHARMA/CountryPicker" target="_blank">Source Code</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Project Content -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>About This Project</h2>
+          <p>CountryPicker is a lightweight, easy-to-use iOS library for selecting countries with their respective flags, dial codes, and currency symbols. It provides a clean and intuitive interface for users to select countries in your iOS applications.</p>
+          
+          <div class="project-screenshots my-5">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <img src="../img/portfolio/fullsize/2.jpg" class="img-fluid rounded" alt="CountryPicker Screenshot 1">
+              </div>
+              <div class="col-md-6 mb-4">
+                <img src="../img/portfolio/fullsize/3.jpg" class="img-fluid rounded" alt="CountryPicker Screenshot 2">
+              </div>
+            </div>
+          </div>
+          
+          <h2>Features</h2>
+          <ul>
+            <li>Display countries with flags, country codes, and dial codes</li>
+            <li>Search functionality for quickly finding specific countries</li>
+            <li>Customizable appearance to match your app's design</li>
+            <li>Support for dark mode in iOS 13+</li>
+            <li>Option to filter countries based on specific criteria</li>
+            <li>Support for SwiftUI integration</li>
+          </ul>
+          
+          <h2>Technical Details</h2>
+          <p>CountryPicker is built with Swift and follows the Model-View-Controller (MVC) architecture. It maintains a database of countries with their corresponding flags, dial codes, and currency symbols. The library is distributed via CocoaPods and Swift Package Manager.</p>
+          
+          <div class="code-snippet my-4">
+            <pre class="p-3 bg-light rounded">
+<code>
+// Example Code
+import CountryPicker
+
+let countryPicker = CountryPickerController()
+countryPicker.delegate = self
+countryPicker.displayPhoneNumbers = true
+countryPicker.showCountriesList(from: self)
+
+// CountryPicker delegate method
+func countryPicker(_ picker: CountryPickerController, didSelectCountry country: Country) {
+    // Use selected country
+    let name = country.countryName
+    let code = country.countryCode
+    let dialCode = country.dialingCode
+}
+</code>
+            </pre>
+          </div>
+          
+          <h2>Challenges & Solutions</h2>
+          <p>One of the key challenges in developing CountryPicker was ensuring the accuracy and completeness of country data, including flags and dial codes. This was addressed by implementing a robust data validation process and regular updates to the country database. Another challenge was optimizing performance for smooth scrolling and searching in the country list, which was solved using efficient data structures and lazy loading techniques.</p>
+          
+          <h2>Outcome</h2>
+          <p>CountryPicker has become one of my most popular open-source projects, with over 300 GitHub stars and numerous implementations in production apps. It has been well-received by the iOS development community for its ease of use, reliability, and extensive customization options.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Projects -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Related Projects</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+          <div class="glass-card">
+            <div class="card-body">
+              <h5 class="card-title">Explore More Projects</h5>
+              <p class="card-text">Check out my other iOS projects and open-source contributions on GitHub.</p>
+              <a href="https://github.com/SURYAKANTSHARMA" class="btn btn-glass" target="_blank">GitHub Profile <i class="fa fa-github ml-2"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-4 bg-dark text-white">
+    <div class="container text-center">
+      <p>&copy; <span id="current-year"></span> Suryakant Sharma. All Rights Reserved.</p>
+      <div class="social-icons">
+        <a href="https://github.com/SURYAKANTSHARMA" target="_blank"><i class="fa fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/surya-kant-22896481" target="_blank"><i class="fa fa-linkedin"></i></a>
+        <a href="https://twitter.com/suryakan84" target="_blank"><i class="fa fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Files -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../vendor/scrollreveal/scrollreveal.min.js"></script>
+  <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+  <script src="../js/creative.js"></script>
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
