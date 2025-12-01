@@ -72,12 +72,35 @@
     }
   });
 
-  // $(".js-scroll-trigger").on("click" ,function(){
-  //   setTimeout(function () {
-  //     var scrolled = document.getElementById("page-top").scrollHeight + 50;
-  //     //document.getElementById("page-top").scrollHeight = scrolled;
-  //     window.scrollTo(0, scrolled);
-  //   }, 1000);
+  // Theme Toggler
+  const themeToggle = document.getElementById('theme-toggle');
+  const body = document.body;
 
-  // });
+  // Function to apply the saved theme
+  const applyTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-mode');
+      themeToggle.innerHTML = '<i class="fa fa-sun-o"></i>';
+    } else {
+      body.classList.remove('dark-mode');
+      themeToggle.innerHTML = '<i class="fa fa-moon-o"></i>';
+    }
+  };
+
+  // Apply the theme on initial load
+  applyTheme();
+
+  // Toggle theme on button click
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    if (body.classList.contains('dark-mode')) {
+      localStorage.setItem('theme', 'dark');
+      themeToggle.innerHTML = '<i class="fa fa-sun-o"></i>';
+    } else {
+      localStorage.setItem('theme', 'light');
+      themeToggle.innerHTML = '<i class="fa fa-moon-o"></i>';
+    }
+  });
+
 })(jQuery); // End of use strict
